@@ -1,0 +1,235 @@
+basePath: /api/v1
+definitions:
+  main.Address:
+    properties:
+      city:
+        type: string
+      country:
+        type: string
+      state:
+        type: string
+      street1:
+        type: string
+      street2:
+        type: string
+      zip:
+        type: string
+    type: object
+  main.Items:
+    properties:
+      discount:
+        type: number
+      pretaxtotal:
+        type: number
+      price:
+        type: number
+      quantity:
+        type: number
+      sku:
+        type: string
+      tax:
+        type: number
+      total:
+        type: number
+    type: object
+  main.Orders:
+    properties:
+      carrier:
+        type: string
+      currency:
+        type: string
+      customerid:
+        type: string
+      items:
+        items:
+          $ref: '#/definitions/main.Items'
+        type: array
+      payment_id:
+        type: string
+      paymentstatus:
+        type: string
+      shipping:
+        items:
+          $ref: '#/definitions/main.Shipping'
+        type: array
+      status:
+        type: string
+      totalamount:
+        type: number
+      tracking:
+        type: string
+    type: object
+  main.Origin:
+    properties:
+      city:
+        type: string
+      country:
+        type: string
+      state:
+        type: string
+      street1:
+        type: string
+      street2:
+        type: string
+      zip:
+        type: string
+    type: object
+  main.Shipping:
+    properties:
+      address:
+        items:
+          $ref: '#/definitions/main.Address'
+        type: array
+      origin:
+        items:
+          $ref: '#/definitions/main.Origin'
+        type: array
+    type: object
+  main.UpdateDetails:
+    properties:
+      quantity:
+        type: number
+      sku:
+        type: string
+    type: object
+  main.UpdateOrderResponse:
+    properties:
+      status:
+        type: string
+    type: object
+host: localhost:8089
+info:
+  contact:
+    email: rohith.s@netxd.com
+    name: INVENTORY
+    url: http://localhost:8083/swagger/index.html#/
+  description: Buy Anything In Our Webstite
+  title: Documenting API (ORDER)
+  version: "1"
+paths:
+  /order/addorderdetails:
+    post:
+      consumes:
+      - application/json
+      description: AddOrderDetails
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/main.UpdateDetails'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.UpdateOrderResponse'
+      security:
+      - bearerToken: []
+      summary: return Added Details
+      tags:
+      - Orders
+  /order/createorder:
+    post:
+      consumes:
+      - application/json
+      description: createorder
+      parameters:
+      - description: user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/main.Orders'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Orders'
+      summary: return created order
+      tags:
+      - Orders
+  /order/deletecustomer:
+    get:
+      description: DeleteCustomer Order
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.UpdateOrderResponse'
+      security:
+      - bearerToken: []
+      summary: return Deleted Meassage
+      tags:
+      - Orders
+  /order/getbyid:
+    get:
+      description: GetById
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Orders'
+      security:
+      - bearerToken: []
+      summary: return GetId
+      tags:
+      - Orders
+  /order/updateorder:
+    post:
+      consumes:
+      - application/json
+      description: UpdateOrder
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/main.UpdateDetails'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.UpdateOrderResponse'
+      security:
+      - bearerToken: []
+      summary: return updated order
+      tags:
+      - Orders
+securityDefinitions:
+  bearer:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

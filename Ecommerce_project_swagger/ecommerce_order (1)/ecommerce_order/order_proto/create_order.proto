@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+
+option go_package="https://github.com/NAVANEESHKM/ecommerce_order";
+package order_proto;
+
+
+message CustomerOrder{
+    string Id=1;
+    string CustomerId=2;
+    string PaymentId=3;
+    string PaymentStatus=4;
+    string Status=5;
+    string Currency=6;
+    repeated Items Items=7;
+    float TotalAmount=8;
+    repeated Shipping Shipping=9;
+    string Carrier=10;
+    string Tracking=11;
+}
+message Shipping {
+    repeated Address Address=1;
+    repeated Origin Origin=2;
+}
+
+message Address {
+    string Street1=1;
+    string Street2=2;
+    string City=3;
+    string State=4;
+    string Country=5;
+    string Zip=6;
+}
+
+message Origin {
+    string Street1=1;
+    string Street2=2;
+    string City=3;
+    string State=4;
+    string Country=5;
+    string Zip=6;
+}
+
+message Items{
+    string Sku=1;
+    float Quantity=2;
+    float Price=3;
+    float Discount=4;
+    float PreTaxTotal=5;
+    float Tax=6;
+    float Total=7;
+}
+
+message CustomerResponse {
+    // string Id=1;
+    string CustomerId=1;
+    // string PaymentId=3;
+    // string PaymentStatus=4;
+    // string Status=5;
+    // string Currency=6;
+}
+

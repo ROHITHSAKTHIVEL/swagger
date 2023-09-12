@@ -1,0 +1,61 @@
+basePath: /api/v1
+definitions:
+  main.PaymentResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  main.Paymentscard:
+    properties:
+      balance:
+        type: number
+      brand:
+        type: string
+      cardno:
+        type: number
+      cvvverified:
+        type: integer
+      expirationmonth:
+        type: integer
+      expirationyear:
+        type: integer
+      panlastfourno:
+        type: string
+    type: object
+host: localhost:8081
+info:
+  contact:
+    email: rohith.s@netxd.com
+    name: NetXD
+    url: https://netxd.com/
+  description: Buy Anything In Our Webstite
+  title: Documenting API (PAYMENT)
+paths:
+  /payment/createpayment:
+    post:
+      consumes:
+      - application/json
+      description: createpayment
+      parameters:
+      - description: user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/main.Paymentscard'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.PaymentResponse'
+      summary: return created payment
+      tags:
+      - Payment
+securityDefinitions:
+  bearer:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

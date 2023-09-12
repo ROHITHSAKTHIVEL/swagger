@@ -1,0 +1,25 @@
+syntax ="proto3";
+
+option go_package= "github.com/SurendharHK/project1";
+
+package payment;
+
+service paymentService{
+    rpc CreatePayment(PaymentDetails) returns (PaymentResponse);
+}
+
+message PaymentDetails{
+    float Cardno=1;
+	string Brand     =  2;  
+	string PanLastFourNo =3;   
+	int32 ExpirationMonth =4;
+	int32 ExpirationYear =5;  
+	int32 Cvvverified  =6;   
+	float Balance     =7;    
+}
+
+message PaymentResponse{
+    string Status =1;
+}
+
+

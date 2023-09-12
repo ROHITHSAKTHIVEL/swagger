@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+
+option go_package="https://github.com/NAVANEESHKM/ecommerce_order";
+package order_proto;
+
+
+message GetOrderRequest{
+    string CustomerId=1;
+}
+
+message GetOrderResponse{
+      
+}

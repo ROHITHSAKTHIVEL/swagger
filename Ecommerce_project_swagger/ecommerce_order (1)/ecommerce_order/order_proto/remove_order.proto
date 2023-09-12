@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package order_proto;
+
+option go_package="https://github.com/NAVANEESHKM/ecommerce_order";
+
+
+
+message RemoveOrderRequest{
+    string CustomerId=1;
+   
+}
+
+message RemoveOrderResponse{
+        string Status=1;
+}
+// message CustomerResponse{
+//     int32 Balance=1;
+// }
+
+
+
+// message CustomerDetails{
+//     int32 From_ID=1;
+//     int32 TO_ID=2;
+//     int32 Amount=3;
+	
+// }
+// message CustomerDetailsResponse{
+//     int32 From_ID=1;
+// }
+
+

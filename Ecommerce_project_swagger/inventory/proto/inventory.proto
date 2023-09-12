@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package inventory;
+
+option go_package = "github.com/Sona-28/inventory/proto";
+
+message Price {
+ float base = 1;
+ string currency = 2;
+ float discount = 3;
+}
+
+message Size {
+    float h = 1;
+    float l = 2;
+    float w = 3;
+}
+
+message Options {
+ Size size = 1;
+ repeated string features = 2;
+ repeated string colors = 3;
+ string ruling = 4;
+ string image = 5;
+}
+
+message InventorySKU {
+//  int64 id = 1;
+ string sku = 2;
+ Price price = 3;
+ float quantity = 4;
+ Options options = 5;
+}
+
+message InventoryItem {
+ int64 id = 1;
+ string item = 2;
+ repeated string features = 3;
+ repeated string categories = 4;
+ repeated InventorySKU skus = 5;
+}
+
+service InventoryService {
+ rpc CreateInventory(AllInventoryItems) returns (String);
+ rpc UpdateInventory(ItemToDelete) returns (String);
+ rpc GetAllItems(Empty) returns (AllInventoryItems);
+ rpc GetInventoryItemByItemName(ItemName) returns (InventoryItem);
+}
+
+message ItemToDelete {
+ string item = 1;
+ string sku = 2;
+ float quantity = 3;
+}
+
+message String {
+    string msg = 1;
+}
+
+message AllInventoryItems {
+ repeated InventoryItem items = 1;
+}
+
+
+
+message ItemName {
+ string item_name = 1;
+}
+
+message Empty {
+}

@@ -1,0 +1,93 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Buy Anything In Our Webstite",
+        "title": "Documenting API (PAYMENT)",
+        "contact": {
+            "name": "NetXD",
+            "url": "https://netxd.com/",
+            "email": "rohith.s@netxd.com"
+        }
+    },
+    "host": "localhost:8081",
+    "basePath": "/api/v1",
+    "paths": {
+        "/payment/createpayment": {
+            "post": {
+                "description": "createpayment",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "return created payment",
+                "parameters": [
+                    {
+                        "description": "user",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.Paymentscard"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.PaymentResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "main.PaymentResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.Paymentscard": {
+            "type": "object",
+            "properties": {
+                "balance": {
+                    "type": "number"
+                },
+                "brand": {
+                    "type": "string"
+                },
+                "cardno": {
+                    "type": "number"
+                },
+                "cvvverified": {
+                    "type": "integer"
+                },
+                "expirationmonth": {
+                    "type": "integer"
+                },
+                "expirationyear": {
+                    "type": "integer"
+                },
+                "panlastfourno": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

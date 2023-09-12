@@ -1,0 +1,280 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Buy Anything In Our Webstite",
+        "title": "Documenting API (INVENTORY)",
+        "contact": {
+            "name": "INVENTORY",
+            "url": "http://localhost:8080/swagger/index.html#/Payment/post_payment_createpayment",
+            "email": "rohith.s@netxd.com"
+        },
+        "version": "1"
+    },
+    "host": "localhost:8083",
+    "basePath": "/api/v1",
+    "paths": {
+        "/inventory/create": {
+            "post": {
+                "description": "CreateItems",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "Create and return it",
+                "parameters": [
+                    {
+                        "description": "user",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/main.Inventory"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.CreateResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/inventory/getitem": {
+            "post": {
+                "description": "getitemsbyid",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "getitems by id",
+                "parameters": [
+                    {
+                        "description": "user",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.GetInventoryItemByItemName"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.Inventory"
+                        }
+                    }
+                }
+            }
+        },
+        "/inventory/getitems": {
+            "get": {
+                "description": "get all items",
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "getitems",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.Inventory"
+                        }
+                    }
+                }
+            }
+        },
+        "/inventory/update": {
+            "post": {
+                "description": "UpdateItems",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "Update Items in Inventory",
+                "parameters": [
+                    {
+                        "description": "user",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.ItemToUpdate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.UpdateResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "main.CreateResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.GetInventoryItemByItemName": {
+            "type": "object",
+            "properties": {
+                "item_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.Inventory": {
+            "type": "object",
+            "properties": {
+                "categories": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "features": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "item": {
+                    "type": "string"
+                },
+                "skus": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/main.Inventory_SKU"
+                    }
+                }
+            }
+        },
+        "main.Inventory_SKU": {
+            "type": "object",
+            "properties": {
+                "options": {
+                    "$ref": "#/definitions/main.Options_type"
+                },
+                "price": {
+                    "$ref": "#/definitions/main.Price_type"
+                },
+                "quantity": {
+                    "type": "number"
+                },
+                "sku": {
+                    "description": "Id \t primitive.ObjectID `json:\"_id\" bson:\"_id\"`",
+                    "type": "string"
+                }
+            }
+        },
+        "main.ItemToUpdate": {
+            "type": "object",
+            "properties": {
+                "item": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "number"
+                },
+                "sku": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.Options_type": {
+            "type": "object",
+            "properties": {
+                "colors": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "features": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "image": {
+                    "type": "string"
+                },
+                "ruling": {
+                    "type": "string"
+                },
+                "size": {
+                    "$ref": "#/definitions/main.Size_type"
+                }
+            }
+        },
+        "main.Price_type": {
+            "type": "object",
+            "properties": {
+                "base": {
+                    "type": "number"
+                },
+                "currency": {
+                    "type": "string"
+                },
+                "discount": {
+                    "type": "number"
+                }
+            }
+        },
+        "main.Size_type": {
+            "type": "object",
+            "properties": {
+                "h": {
+                    "type": "number"
+                },
+                "l": {
+                    "type": "number"
+                },
+                "w": {
+                    "type": "number"
+                }
+            }
+        },
+        "main.UpdateResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package order_proto;
+
+option go_package="https://github.com/NAVANEESHKM/ecommerce_order";
+
+
+
+message UpdateOrderRequest{
+    string Customer_ID=1;
+    string Sku =2;
+    float Quantity=3;
+    // repeated Shipping Shipping=3;
+}
+// message Shipping {
+//     repeated Address Address=1;
+//     repeated Origin Origin=2;
+// }
+
+// message CustomerResponse{
+//     int32 Balance=1;
+// }
+
+
+
+// message CustomerDetails{
+//     int32 From_ID=1;
+//     int32 TO_ID=2;
+//     int32 Amount=3;
+	
+// }
+// message CustomerDetailsResponse{
+//     int32 From_ID=1;
+// }
+
+message UpdateOrderResponse{
+    string Status=1;
+}
+
+

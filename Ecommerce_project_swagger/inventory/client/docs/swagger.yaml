@@ -1,0 +1,182 @@
+basePath: /api/v1
+definitions:
+  main.CreateResponse:
+    properties:
+      id:
+        type: string
+    type: object
+  main.GetInventoryItemByItemName:
+    properties:
+      item_name:
+        type: string
+    type: object
+  main.Inventory:
+    properties:
+      categories:
+        items:
+          type: string
+        type: array
+      features:
+        items:
+          type: string
+        type: array
+      id:
+        type: integer
+      item:
+        type: string
+      skus:
+        items:
+          $ref: '#/definitions/main.Inventory_SKU'
+        type: array
+    type: object
+  main.Inventory_SKU:
+    properties:
+      options:
+        $ref: '#/definitions/main.Options_type'
+      price:
+        $ref: '#/definitions/main.Price_type'
+      quantity:
+        type: number
+      sku:
+        description: "Id \t primitive.ObjectID `json:\"_id\" bson:\"_id\"`"
+        type: string
+    type: object
+  main.ItemToUpdate:
+    properties:
+      item:
+        type: string
+      quantity:
+        type: number
+      sku:
+        type: string
+    type: object
+  main.Options_type:
+    properties:
+      colors:
+        items:
+          type: string
+        type: array
+      features:
+        items:
+          type: string
+        type: array
+      image:
+        type: string
+      ruling:
+        type: string
+      size:
+        $ref: '#/definitions/main.Size_type'
+    type: object
+  main.Price_type:
+    properties:
+      base:
+        type: number
+      currency:
+        type: string
+      discount:
+        type: number
+    type: object
+  main.Size_type:
+    properties:
+      h:
+        type: number
+      l:
+        type: number
+      w:
+        type: number
+    type: object
+  main.UpdateResponse:
+    properties:
+      message:
+        type: string
+    type: object
+host: localhost:8083
+info:
+  contact:
+    email: rohith.s@netxd.com
+    name: INVENTORY
+    url: http://localhost:8080/swagger/index.html#/Payment/post_payment_createpayment
+  description: Buy Anything In Our Webstite
+  title: Documenting API (INVENTORY)
+  version: "1"
+paths:
+  /inventory/create:
+    post:
+      consumes:
+      - application/json
+      description: CreateItems
+      parameters:
+      - description: user
+        in: body
+        name: user
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/main.Inventory'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.CreateResponse'
+      summary: Create and return it
+      tags:
+      - Inventory
+  /inventory/getitem:
+    post:
+      consumes:
+      - application/json
+      description: getitemsbyid
+      parameters:
+      - description: user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/main.GetInventoryItemByItemName'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Inventory'
+      summary: getitems by id
+      tags:
+      - Inventory
+  /inventory/getitems:
+    get:
+      description: get all items
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Inventory'
+      summary: getitems
+      tags:
+      - Inventory
+  /inventory/update:
+    post:
+      consumes:
+      - application/json
+      description: UpdateItems
+      parameters:
+      - description: user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/main.ItemToUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.UpdateResponse'
+      summary: Update Items in Inventory
+      tags:
+      - Inventory
+swagger: "2.0"

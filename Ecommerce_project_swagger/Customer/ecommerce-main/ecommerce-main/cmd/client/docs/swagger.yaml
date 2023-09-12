@@ -1,0 +1,259 @@
+basePath: /api/v1
+definitions:
+  controllers_test.Address:
+    properties:
+      city:
+        type: string
+      country:
+        type: string
+      state:
+        type: string
+      street1:
+        type: string
+      street2:
+        type: string
+      zip:
+        type: string
+    type: object
+  controllers_test.Customer:
+    properties:
+      address:
+        items:
+          $ref: '#/definitions/controllers_test.Address'
+        type: array
+      customerid:
+        type: string
+      email:
+        type: string
+      firstname:
+        type: string
+      lastname:
+        type: string
+      password:
+        type: string
+      shippingaddress:
+        items:
+          $ref: '#/definitions/controllers_test.ShippingAddress'
+        type: array
+    type: object
+  controllers_test.DeleteResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  controllers_test.GetByCustomerIdResponse:
+    properties:
+      customerid:
+        type: string
+      email:
+        type: string
+      firstname:
+        type: string
+      lastname:
+        type: string
+      message:
+        type: string
+    type: object
+  controllers_test.ShippingAddress:
+    properties:
+      city:
+        type: string
+      state:
+        type: string
+      street1:
+        type: string
+      street2:
+        type: string
+    type: object
+  controllers_test.Token:
+    properties:
+      customerid:
+        type: string
+      email:
+        type: string
+      token:
+        type: string
+    type: object
+  controllers_test.UpdatePassword:
+    properties:
+      email:
+        type: string
+      newpassword:
+        type: string
+      oldpassword:
+        type: string
+    type: object
+  controllers_test.UpdateRequest:
+    properties:
+      field:
+        type: string
+      newvalue:
+        type: string
+      oldvalue:
+        type: string
+    type: object
+  controllers_test.UpdateResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  controllers_test.User:
+    properties:
+      customerid:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: rohith.s@netxd.com
+    name: INVENTORY
+    url: http://localhost:8083/swagger/index.html#/
+  description: Buy Anything In Our Webstite
+  title: Documenting API (E-Commerce Webstie)
+  version: "1"
+paths:
+  /users/delete:
+    post:
+      consumes:
+      - application/json
+      description: Delete
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers_test.DeleteResponse'
+      security:
+      - bearerToken: []
+      summary: return Deleted Message
+      tags:
+      - Users
+  /users/getbyid:
+    get:
+      description: Get user details by ID
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers_test.GetByCustomerIdResponse'
+      security:
+      - bearerToken: []
+      summary: Get User by ID
+      tags:
+      - Users
+  /users/reset:
+    post:
+      consumes:
+      - application/json
+      description: reset
+      parameters:
+      - description: user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/controllers_test.UpdatePassword'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers_test.UpdatePassword'
+      summary: return Updated Password
+      tags:
+      - Users
+  /users/signin:
+    post:
+      description: signin and return user
+      parameters:
+      - description: User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/controllers_test.User'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers_test.Token'
+      summary: return Signin user
+      tags:
+      - Users
+  /users/signup:
+    post:
+      consumes:
+      - application/json
+      description: signup
+      parameters:
+      - description: user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/controllers_test.Customer'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers_test.Customer'
+      summary: return created user
+      tags:
+      - Users
+  /users/update:
+    post:
+      consumes:
+      - application/json
+      description: Update and return user
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/controllers_test.UpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers_test.UpdateResponse'
+      security:
+      - bearerToken: []
+      summary: Update User
+      tags:
+      - Users
+securityDefinitions:
+  bearer:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
